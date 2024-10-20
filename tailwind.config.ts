@@ -16,6 +16,10 @@ export default {
           '"Noto Color Emoji"',
         ],
       },
+      colors: {
+        "1b-black": "#222323",
+        "1b-white": "#f0f6f0",
+      },
     },
   },
   plugins: [],
