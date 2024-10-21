@@ -193,6 +193,6 @@ const games = [
     title: "Saloon King",
     description:
       "Voice Acted for Tom Milman's Jern Jam 3 Entry. A short western shooter about a cowboy who wants to take over a Saloon and its town",
-    href: "https://solarlabyrinth.itch.io/lunariel",
+    href: "https://tom-milman.itch.io/saloon-king",
   },
 ];
