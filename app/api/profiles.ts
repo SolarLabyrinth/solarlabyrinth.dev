@@ -21,7 +21,7 @@ const profiles = [
   {
     icon: faDiscord,
     title: "solarlabyrinth",
-    description: "Discord Username",
+    description: "Discord | Username",
   },
   {
     icon: faBluesky,
@@ -32,7 +32,7 @@ const profiles = [
   {
     icon: faItchIo,
     title: "SolarLabyrinth",
-    description: "Itch",
+    description: "Itch.io",
     href: "https://solarlabyrinth.itch.io/",
   },
   {
@@ -55,8 +55,8 @@ const profiles = [
   },
   {
     icon: faMastodon,
-    title: "@SolarLabyrinth@mastodon.social",
-    description: "Mastodon",
+    title: "@SolarLabyrinth",
+    description: "Mastodon | @mastodon.social",
     href: "https://mastodon.social/@SolarLabyrinth",
   },
 ];
