@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { cx } from "~/utils/cx";
 import { useLoaderData } from "@remix-run/react";
-import { getItchGames } from "~/api/itch";
+import { Game, getItchGames } from "~/api/itch";
 import { getProfiles } from "~/api/profiles";
 
 const TITLE = "SolarLabyrinth";
@@ -23,9 +23,28 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export const loader = async ({ request, context }: LoaderFunctionArgs) => {
-  const key = context.cloudflare.env.ITCH_IO_API_KEY;
-  const games = await getItchGames(key, request.signal);
+async function getGamesCached({ request, context }: LoaderFunctionArgs) {
+  try {
+    const { env } = context.cloudflare;
+
+    const key = env.ITCH_IO_API_KEY;
+    const kv = env["solarlabyrinth.dev"];
+
+    let games = await kv.get<Game[]>("itch-games", "json");
+
+    if (!games) {
+      games = await getItchGames(key, request.signal);
+      await kv.put("itch-games", JSON.stringify(games), {});
+    }
+
+    return games;
+  } catch {
+    return [];
+  }
+}
+
+export const loader = async (args: LoaderFunctionArgs) => {
+  const games = await getGamesCached(args);
   const profiles = await getProfiles();
   return { games, profiles };
 };
@@ -123,6 +142,10 @@ function ProfileList() {
 
 function GamesList() {
   const { games } = useLoaderData<typeof loader>();
+
+  if (games.length === 0) {
+    return null;
+  }
 
   return (
     <section>
