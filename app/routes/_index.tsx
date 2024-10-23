@@ -67,7 +67,7 @@ function ProfileList() {
 
   return (
     <section>
-      <ul className="px-4">
+      <ul className="px-4 md:columns-2">
         {profiles.map((profile) => {
           const baseItemClassName = "flex items-center gap-2 p-2 rounded-lg";
           const contents = (
