@@ -2,6 +2,7 @@ import { faBluesky } from "@fortawesome/free-brands-svg-icons/faBluesky";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons/faDiscord";
 import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
 import { faItchIo } from "@fortawesome/free-brands-svg-icons/faItchIo";
+import { faMastodon } from "@fortawesome/free-brands-svg-icons/faMastodon";
 import { faTwitch } from "@fortawesome/free-brands-svg-icons/faTwitch";
 import { faXTwitter } from "@fortawesome/free-brands-svg-icons/faXTwitter";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons/faYoutube";
@@ -51,5 +52,11 @@ const profiles = [
     title: "@solarlabyrinth",
     description: "Twitter",
     href: "https://x.com/solarlabyrinth",
+  },
+  {
+    icon: faMastodon,
+    title: "@SolarLabyrinth@mastodon.social",
+    description: "Mastodon",
+    href: "https://mastodon.social/@SolarLabyrinth",
   },
 ];
