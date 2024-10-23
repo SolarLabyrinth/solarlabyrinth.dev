@@ -100,6 +100,8 @@ function ProfileList() {
               {profile.href ? (
                 <a
                   href={profile.href}
+                  target="__blank"
+                  rel="noopener noreferrer"
                   className={cx(
                     baseItemClassName,
                     "hover:bg-neutral-200",
@@ -128,7 +130,7 @@ function GamesList() {
       <ul className="flex flex-wrap px-6">
         {games.map((game) => (
           <li key={game.href} className="w-full sm:w-1/2 p-2 items-center">
-            <a href={game.href}>
+            <a href={game.href} target="__blank" rel="noopener noreferrer">
               <img src={game.img} className="w-full" />
               <div className="my-3">
                 <div className="text-2xl font-bold text-neutral-800 dark:text-1b-white">
