@@ -9,7 +9,20 @@ import {
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./tailwind.css";
-import { LoaderFunctionArgs } from "@remix-run/cloudflare";
+import { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
+
+const fonts: string[] = [
+  // "/fonts/ComicNeue/ComicNeue-LightItalic.ttf",
+  // "/fonts/ComicNeue/ComicNeue-Italic.ttf",
+  // "/fonts/ComicNeue/ComicNeue-BoldItalic.ttf",
+  // "/fonts/ComicNeue/ComicNeue-Light.ttf",
+  "/fonts/ComicNeue/ComicNeue-Regular.ttf",
+  "/fonts/ComicNeue/ComicNeue-Bold.ttf",
+];
+
+export const links: LinksFunction = () => {
+  return fonts.map((href) => ({ rel: "preload", href, as: "font" }));
+};
 
 export const loader = ({ request }: LoaderFunctionArgs) => {
   const isDev = (() => {
