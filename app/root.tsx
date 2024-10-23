@@ -4,12 +4,28 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "./tailwind.css";
+import { LoaderFunctionArgs } from "@remix-run/cloudflare";
+
+export const loader = ({ request }: LoaderFunctionArgs) => {
+  const isDev = (() => {
+    try {
+      return new URL(request.url).hostname === "localhost";
+    } catch {
+      return false;
+    }
+  })();
+
+  return { isDev };
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { isDev } = useLoaderData<typeof loader>();
+
   return (
     <html lang="en">
       <head>
@@ -21,8 +37,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        <ScrollRestoration />
-        <Scripts />
+        {isDev && (
+          <>
+            <ScrollRestoration />
+            <Scripts />
+          </>
+        )}
       </body>
     </html>
   );
