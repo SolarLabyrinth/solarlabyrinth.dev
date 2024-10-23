@@ -8,6 +8,7 @@ import { type PlatformProxy } from "wrangler";
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Env {
   ITCH_IO_API_KEY: string;
+  IS_LOCAL?: string;
 }
 
 type Cloudflare = Omit<PlatformProxy<Env>, "dispose">;

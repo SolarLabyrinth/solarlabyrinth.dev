@@ -6,10 +6,10 @@ import {
   ScrollRestoration,
   useLoaderData,
 } from "@remix-run/react";
+import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
 
-import "@fortawesome/fontawesome-svg-core/styles.css";
-import "./tailwind.css";
-import { LinksFunction, LoaderFunctionArgs } from "@remix-run/cloudflare";
+import fontawesomeStyles from "@fortawesome/fontawesome-svg-core/styles.css?inline";
+import tailwindStyles from "./tailwind.css?inline";
 
 const fonts: string[] = [
   // "/fonts/ComicNeue/ComicNeue-LightItalic.ttf",
@@ -24,15 +24,8 @@ export const links: LinksFunction = () => {
   return fonts.map((href) => ({ rel: "preload", href, as: "font" }));
 };
 
-export const loader = ({ request }: LoaderFunctionArgs) => {
-  const isDev = (() => {
-    try {
-      return new URL(request.url).hostname === "localhost";
-    } catch {
-      return false;
-    }
-  })();
-
+export const loader = ({ context }: LoaderFunctionArgs) => {
+  const isDev = context.cloudflare.env.IS_LOCAL === "true";
   return { isDev };
 };
 
@@ -45,6 +38,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta charSet="utf-8" />
         <link rel="manifest" href="manifest.json" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <style dangerouslySetInnerHTML={{ __html: tailwindStyles }} />
+        <style dangerouslySetInnerHTML={{ __html: fontawesomeStyles }} />
         <Meta />
         <Links />
       </head>

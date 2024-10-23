@@ -48,7 +48,7 @@ function Header() {
       <div className="flex flex-col items-center text-center gap-4 sm:flex-row sm:text-left">
         <img
           className="size-24 rounded-full"
-          src="/owl-left.png"
+          src="/owl-left.webp"
           alt="Profile Picture of a black and white owl with a rainbow bowtie"
         />
         <div>
@@ -131,7 +131,11 @@ function GamesList() {
         {games.map((game) => (
           <li key={game.href} className="w-full sm:w-1/2 p-2 items-center">
             <a href={game.href} target="__blank" rel="noopener noreferrer">
-              <img src={game.img} className="w-full" />
+              <img
+                src={game.img}
+                className="w-full"
+                alt={`Thumbnail for ${game.title}`}
+              />
               <div className="my-3">
                 <div className="text-2xl font-bold text-neutral-800 dark:text-1b-white">
                   {game.title}
