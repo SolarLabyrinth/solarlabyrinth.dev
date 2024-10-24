@@ -1,3 +1,17 @@
+type ItchIoMe = {
+  username: string;
+  gamer: boolean;
+  display_name: string;
+  cover_url: string;
+  url: string;
+  press_user: boolean;
+  developer: boolean;
+  id: number;
+};
+type ItchIoMeResponse = {
+  user?: ItchIoMe;
+};
+
 type ItchIoGame = {
   published_at?: string;
   created_at?: string;
@@ -33,6 +47,35 @@ type ItchIoGame = {
     fullscreen?: boolean;
   };
 };
+type ItchIoMyGamesResponse = {
+  games?: ItchIoGame[];
+};
+
+export async function fetchMe(key: string, signal: AbortSignal) {
+  console.log("Fetching Me");
+  const res = await fetch(`https://itch.io/api/1/key/me`, {
+    headers: {
+      Authorization: `Bearer ${key}`,
+    },
+    signal: signal,
+  });
+
+  const data = (await res.json()) as ItchIoMeResponse;
+  return data;
+}
+
+export async function fetchMyGames(key: string, signal: AbortSignal) {
+  console.log("Fetching Games");
+  const res = await fetch(`https://itch.io/api/1/key/my-games`, {
+    headers: {
+      Authorization: `Bearer ${key}`,
+    },
+    signal: signal,
+  });
+
+  const data = (await res.json()) as ItchIoMyGamesResponse;
+  return data;
+}
 
 export type Game = {
   title?: string;
@@ -41,27 +84,22 @@ export type Game = {
   img?: string;
   isPrimaryDev: boolean;
 };
-const MY_USER_ID = 10083948;
 
 export async function getItchGames(key: string, signal: AbortSignal) {
-  const res = await fetch(`https://itch.io/api/1/key/my-games`, {
-    headers: {
-      Authorization: `Bearer ${key}`,
-    },
-    signal: signal,
-  });
-
-  const data = (await res.json()) as { games: ItchIoGame[] };
+  const [meResponse, gamesResponse] = await Promise.all([
+    fetchMe(key, signal),
+    fetchMyGames(key, signal),
+  ]);
 
   const games: Game[] =
-    data?.games
+    gamesResponse?.games
       ?.filter((game) => game?.published_at)
       ?.map((game) => ({
         title: game?.title,
         description: game?.short_text,
         href: game?.url,
         img: game?.cover_url,
-        isPrimaryDev: game?.user?.id === MY_USER_ID,
+        isPrimaryDev: game?.user?.id === meResponse?.user?.id,
       })) ?? [];
 
   return games;

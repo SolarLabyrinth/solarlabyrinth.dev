@@ -10,6 +10,7 @@ interface Env {
   "solarlabyrinth.dev": KVNamespace;
   ITCH_IO_API_KEY: string;
   IS_LOCAL?: string;
+  USE_CACHE?: string;
 }
 
 type Cloudflare = Omit<PlatformProxy<Env>, "dispose">;

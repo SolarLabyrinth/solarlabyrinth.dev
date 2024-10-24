@@ -28,16 +28,19 @@ async function getGamesCached({ request, context }: LoaderFunctionArgs) {
     const { env } = context.cloudflare;
 
     const key = env.ITCH_IO_API_KEY;
-    const kv = env["solarlabyrinth.dev"];
+    const useCache = env.USE_CACHE !== "false";
 
-    let games = await kv.get<Game[]>("itch-games", "json");
-
-    if (!games) {
-      games = await getItchGames(key, request.signal);
-      await kv.put("itch-games", JSON.stringify(games), {});
+    if (useCache) {
+      const kv = env["solarlabyrinth.dev"];
+      let games = await kv.get<Game[]>("itch-games", "json");
+      if (!games) {
+        games = await getItchGames(key, request.signal);
+        await kv.put("itch-games", JSON.stringify(games), {});
+      }
+      return games;
+    } else {
+      return await getItchGames(key, request.signal);
     }
-
-    return games;
   } catch {
     return [];
   }
