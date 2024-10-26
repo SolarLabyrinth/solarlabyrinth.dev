@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { cx } from "~/utils/cx";
 import { useLoaderData } from "@remix-run/react";
 import { Game, getItchGames } from "~/api/itch";
-import { getProfiles } from "~/api/profiles";
+import { getProfiles, Profile } from "~/api/profiles";
+import { ReactNode } from "react";
 
 const TITLE = "SolarLabyrinth";
 const DESCRIPTION =
@@ -84,60 +85,77 @@ function Header() {
   );
 }
 
+type ProfileItemProps = {
+  profile: Profile;
+};
+
+function ProfileItem({ profile }: ProfileItemProps) {
+  const Tag = profile.href ? "a" : "div";
+  const extraProps =
+    Tag === "a"
+      ? {
+          href: profile.href,
+          target: "__blank",
+          rel: "noopener noreferrer",
+        }
+      : {};
+
+  return (
+    <Tag
+      data-tag={Tag}
+      className={cx(
+        Tag === "a" ? "group" : "",
+        "grid",
+        "grid-cols-[auto_1fr]",
+        "grid-rows-[auto_auto]",
+        "gap-x-2",
+        "items-center",
+        "p-2",
+        "rounded-lg",
+        "motion-safe:transition-colors",
+        "data-[tag=a]:hover:bg-neutral-200",
+        "data-[tag=a]:dark:hover:bg-neutral-700"
+      )}
+      {...extraProps}
+    >
+      {profile.icon && (
+        <FontAwesomeIcon
+          className="row-span-2 p-2 group-hover:motion-safe:scale-110"
+          fixedWidth
+          size="2x"
+          icon={profile.icon}
+        />
+      )}
+      {profile.title && (
+        <div className="text-xl font-bold text-neutral-800 dark:text-1b-white">
+          {profile.title}
+        </div>
+      )}
+      {profile.description && (
+        <div className="text-md font-bold text-neutral-500 dark:text-neutral-400">
+          {profile.description}
+        </div>
+      )}
+    </Tag>
+  );
+}
+
 function ProfileList() {
   const { profiles } = useLoaderData<typeof loader>();
 
+  if (profiles.length === 0) {
+    return null;
+  }
+
   return (
     <section>
-      <ul className="px-4 md:columns-2">
-        {profiles.map((profile) => {
-          const baseItemClassName = "flex items-center gap-2 p-2 rounded-lg";
-          const contents = (
-            <>
-              {profile.icon && (
-                <FontAwesomeIcon
-                  className="flex-initial p-2"
-                  fixedWidth
-                  size="2x"
-                  icon={profile.icon}
-                />
-              )}
-              <div className="flex-1">
-                {profile.title && (
-                  <div className="text-xl font-bold text-neutral-800 dark:text-1b-white">
-                    {profile.title}
-                  </div>
-                )}
-                {profile.description && (
-                  <div className="text-md font-bold text-neutral-500 dark:text-neutral-400">
-                    {profile.description}
-                  </div>
-                )}
-              </div>
-            </>
-          );
-
-          return (
-            <li key={profile.description}>
-              {profile.href ? (
-                <a
-                  href={profile.href}
-                  target="__blank"
-                  rel="noopener noreferrer"
-                  className={cx(
-                    baseItemClassName,
-                    "hover:bg-neutral-200",
-                    "dark:hover:bg-neutral-700"
-                  )}
-                >
-                  {contents}
-                </a>
-              ) : (
-                <div className={baseItemClassName}>{contents}</div>
-              )}
-            </li>
-          );
-        })}
+      <h2 className="sr-only">Social Media Profiles</h2>
+      <ul className="px-4 grid md:grid-cols-2">
+        {profiles.map((profile) => (
+          <li key={profile.description}>
+            <ProfileItem profile={profile} />
+          </li>
+        ))}
       </ul>
     </section>
   );
@@ -152,7 +170,7 @@ function GamesList() {
 
   return (
     <section>
-      <h2 className="text-3xl px-7 mt-4 mb-1 font-bold">Games</h2>
+      <h2 className="text-3xl px-8 mt-4 mb-1 font-bold">Games</h2>
       <ul className="flex flex-wrap px-6">
         {games.map((game) => (
           <li key={game.href} className="w-full sm:w-1/2 p-2 items-center">
@@ -169,16 +187,23 @@ function GamesList() {
                 <div className="my-1 text-xl font-bold text-neutral-500 dark:text-neutral-400">
                   {game.description}
                 </div>
-                {!game.isPrimaryDev && (
-                  <span className="px-2 py-1 bg-neutral-300 dark:bg-neutral-700 rounded-md">
-                    Assisted
-                  </span>
-                )}
+                {!game.isPrimaryDev && <Badge>Assisted</Badge>}
               </div>
             </a>
           </li>
         ))}
       </ul>
     </section>
+  );
+}
+
+type BadgeProps = {
+  children: ReactNode;
+};
+function Badge({ children }: BadgeProps) {
+  return (
+    <span className="px-2 py-1 bg-neutral-300 dark:bg-neutral-700 rounded-md">
+      {children}
+    </span>
   );
 }

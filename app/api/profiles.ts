@@ -1,3 +1,4 @@
+import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faBluesky } from "@fortawesome/free-brands-svg-icons/faBluesky";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons/faDiscord";
 import { faGithub } from "@fortawesome/free-brands-svg-icons/faGithub";
@@ -11,7 +12,14 @@ export async function getProfiles() {
   return profiles;
 }
 
-const profiles = [
+export type Profile = {
+  icon: IconDefinition;
+  title: string;
+  description: string;
+  href?: string;
+};
+
+const profiles: Profile[] = [
   {
     icon: faTwitch,
     title: "SolarLabyrinth",
