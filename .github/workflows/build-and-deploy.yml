@@ -21,3 +21,10 @@ jobs:
 
       - name: Build Site
         run: npm run build
+
+      - name: Build & Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          command: pages deploy ./dist --project-name=solarlabyrinth-dev
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
