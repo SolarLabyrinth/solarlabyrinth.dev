@@ -1,0 +1,115 @@
+---
+import Icon from "./Icon.astro";
+
+function cx(...classes: string[]) {
+  return classes.filter(Boolean).join(" ");
+}
+
+const profiles = [
+  {
+    icon: "twitch",
+    title: "SolarLabyrinth",
+    description: "Twitch",
+    href: "https://www.twitch.tv/solarlabyrinth",
+  },
+  {
+    icon: "discord",
+    title: "solarlabyrinth",
+    description: "Discord | Username",
+  },
+  {
+    icon: "bluesky",
+    title: "@solarlabyrinth.dev",
+    description: "Bluesky",
+    href: "https://bsky.app/profile/solarlabyrinth.dev",
+  },
+  {
+    icon: "itch",
+    title: "SolarLabyrinth",
+    description: "Itch.io",
+    href: "https://solarlabyrinth.itch.io/",
+  },
+  {
+    icon: "github",
+    title: "SolarLabyrinth",
+    description: "Github",
+    href: "https://github.com/SolarLabyrinth",
+  },
+  {
+    icon: "youtube",
+    title: "@TheSolarLabyrinth",
+    description: "YouTube",
+    href: "https://www.youtube.com/@TheSolarLabyrinth",
+  },
+  {
+    icon: "twitter",
+    title: "@solarlabyrinth",
+    description: "Twitter",
+    href: "https://x.com/solarlabyrinth",
+  },
+  {
+    icon: "mastodon",
+    title: "@SolarLabyrinth",
+    description: "Mastodon | @mastodon.social",
+    href: "https://mastodon.social/@SolarLabyrinth",
+  },
+];
+---
+
+<section>
+  <h2 class="sr-only">Social Media Profiles</h2>
+  <ul class="grid sm:grid-cols-2">
+    {
+      profiles.map((profile) => {
+        const Tag = profile.href ? "a" : "div";
+        const extraProps =
+          Tag === "a"
+            ? {
+                href: profile.href,
+                target: "__blank",
+                rel: "noopener noreferrer",
+              }
+            : {};
+
+        return (
+          <li>
+            <Tag
+              data-tag={Tag}
+              class={cx(
+                Tag === "a" ? "group" : "",
+                "grid",
+                "grid-cols-[auto_1fr]",
+                "grid-rows-[auto_auto]",
+                "gap-x-2",
+                "items-center",
+                "p-2",
+                "rounded-lg",
+                "motion-safe:transition-colors",
+                "data-[tag=a]:hover:bg-neutral-200",
+                "data-[tag=a]:dark:hover:bg-neutral-700"
+              )}
+              {...extraProps}
+            >
+              {profile.icon && (
+                <Icon
+                  class="border-0 box-content fill-current block text-[32px] h-[32px] text-center w-[40px] row-span-2 p-2 group-hover:motion-safe:scale-110"
+                  name={profile.icon}
+                />
+              )}
+              {profile.title && (
+                <div class="text-xl font-bold text-neutral-800 dark:text-1b-white">
+                  {profile.title}
+                </div>
+              )}
+              {profile.description && (
+                <div class="text-md font-bold text-neutral-500 dark:text-neutral-400">
+                  {profile.description}
+                </div>
+              )}
+            </Tag>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>

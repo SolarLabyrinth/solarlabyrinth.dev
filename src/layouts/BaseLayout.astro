@@ -1,0 +1,66 @@
+---
+import { Image } from "astro:assets";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import "../styles/global.css";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const title = Astro.props.title
+  ? `${Astro.props.title} | ${SITE_TITLE}`
+  : SITE_TITLE;
+
+const description = Astro.props.description || SITE_DESCRIPTION;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link
+      rel="preload"
+      href="/fonts/ComicNeue/ComicNeue-Regular.ttf"
+      as="font"
+    />
+    <link rel="preload" href="/fonts/ComicNeue/ComicNeue-Bold.ttf" as="font" />
+  </head>
+  <body>
+    <div
+      class="w-full max-w-[640px] m-auto min-h-screen border-neutral-300 dark:border-neutral-700 sm:border-x-2"
+    >
+      <header class="px-8 pt-8 mb-8">
+        <div
+          class="flex flex-col items-center text-center gap-4 sm:flex-row sm:text-left"
+        >
+          <a href="/" aria-label="Home Page">
+            <Image
+              width={96}
+              height={96}
+              loading="eager"
+              class="size-24 rounded-full"
+              src="/images/solar-avatar-512.png"
+              alt="A black and white owl with a rainbow bowtie in line art style"
+            />
+          </a>
+          <div>
+            <h1 class="text-2xl font-bold">{SITE_TITLE}</h1>
+            <p
+              class="text-md w-60 sm:w-full font-semibold text-neutral-500 dark:text-neutral-400"
+            >
+              {SITE_DESCRIPTION}
+            </p>
+          </div>
+        </div>
+      </header>
+      <main class="px-4">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

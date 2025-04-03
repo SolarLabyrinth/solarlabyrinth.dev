@@ -1,8 +1,12 @@
-node_modules
+dist/
+.astro/
 
-/.cache
-/build
+node_modules/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
 .env
-.dev.vars
-
-.wrangler
+.env.production
