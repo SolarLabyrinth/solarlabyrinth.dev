@@ -17,3 +17,9 @@ Run: `npm run dev`
 ## Deployments
 
 Deployments are handled automatically on each push to cloudflare. Main branch goes to production.
+
+## License
+
+All code is MIT Licensed.
+
+Content is licensed under [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
