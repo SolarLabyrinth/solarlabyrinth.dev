@@ -22,7 +22,7 @@ jobs:
       - name: Build Site
         run: npm run build
 
-      - name: Build & Deploy Worker
+      - name: Deploy
         uses: cloudflare/wrangler-action@v3
         with:
           command: pages deploy ./dist --project-name=solarlabyrinth-dev
