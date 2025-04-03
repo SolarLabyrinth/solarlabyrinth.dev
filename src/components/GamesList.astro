@@ -1,0 +1,67 @@
+---
+const games = [
+  {
+    title: "Lunariel",
+    description:
+      "Banish the shadow spirits and restore the light of Lunariel to this once-hallowed forest.",
+    href: "https://solarlabyrinth.itch.io/lunariel",
+    img: "https://img.itch.zone/aW1nLzE2ODY5ODI4LnBuZw==/315x250%23c/Dlkfka.png",
+    labels: ["Jam Game"],
+  },
+  {
+    title: "Aqua Regia",
+    description:
+      "Combine elemental essences, purify your alchemical solution, and turn lead into gold in this physics-based puzzle game.",
+    href: "https://solarlabyrinth.itch.io/aqua-regia",
+    img: "https://img.itch.zone/aW1nLzE1OTMyMzgxLnBuZw==/315x250%23c/OUQ6N8.png",
+    labels: ["Jam Game"],
+  },
+  {
+    title: "Saloon King",
+    description:
+      "A short western shooter about a cowboy who wants to take over a Saloon and its town",
+    href: "https://tom-milman.itch.io/saloon-king",
+    img: "https://img.itch.zone/aW1nLzE3OTkxOTA3LnBuZw==/315x250%23c/URqnrg.png",
+    labels: ["Voice Acted"],
+  },
+  {
+    title: "PacSnek",
+    description: "Eat food. Get long. Dodge ghosts.",
+    href: "https://solarlabyrinth.itch.io/pacsnek",
+    img: "https://img.itch.zone/aW1nLzE5MDA4NjE2LnBuZw==/315x250%23c/KEhExo.png",
+    labels: ["Jam Game"],
+  },
+];
+---
+
+<section>
+  <h2 class="text-3xl px-4 mt-4 mb-1 font-bold">Games</h2>
+  <ul class="flex flex-wrap px-2 @container">
+    {
+      games.map((game) => (
+        <li class="w-full @md:w-1/2 p-2">
+          <a href={game.href} target="_blank" rel="noopener noreferrer">
+            <img
+              src={game.img}
+              class="w-full rounded-xl"
+              alt={`Thumbnail for ${game.title}`}
+            />
+            <div class="my-3">
+              <div class="text-2xl font-bold text-neutral-800 dark:text-white">
+                {game.title}
+              </div>
+              {game.labels.map((label) => (
+                <span class="px-2 py-1 bg-neutral-300 dark:bg-neutral-700 rounded-md text-sm">
+                  {label}
+                </span>
+              ))}
+              <div class="my-1 text-xl text-neutral-500 dark:text-neutral-400">
+                {game.description}
+              </div>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</section>

@@ -1,6 +1,0 @@
-name = "solarlabyrinth-dev"
-main = "./build/server/index.js"
-
-kv_namespaces = [
-  { binding = "solarlabyrinth.dev", id = "cd847f403803404e83972ab9c343dab4" }
-]
