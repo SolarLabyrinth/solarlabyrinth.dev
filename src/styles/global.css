@@ -1,80 +1,92 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Comic Neue", "ui-sans-serif", "system-ui", "sans-serif",
-    '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"',
-    '"Noto Color Emoji"';
-  --color-1b-black: #222323;
+  --font-sans: "Roboto";
+  --font-mono: "Roboto Mono";
+  --color-1b-black: var(--color-neutral-800);
   --color-1b-white: #f0f6f0;
 }
 
 @font-face {
-  font-family: "Comic Neue";
-  font-style: italic;
-  font-weight: 300;
-  font-display: swap;
-  src: url(/fonts/ComicNeue/ComicNeue-LightItalic.ttf) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "Comic Neue";
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/ComicNeue/ComicNeue-Italic.ttf) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "Comic Neue";
-  font-style: italic;
-  font-weight: 700;
-  font-display: swap;
-  src: url(/fonts/ComicNeue/ComicNeue-BoldItalic.ttf) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
-}
-@font-face {
-  font-family: "Comic Neue";
+  font-family: "Roboto";
   font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url(/fonts/ComicNeue/ComicNeue-Light.ttf) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: block;
+  src: url(/fonts/Roboto/Roboto-VariableFont_wdth,wght.ttf) format("woff2");
 }
 @font-face {
-  font-family: "Comic Neue";
+  font-family: "Roboto";
+  font-style: italic;
+  font-display: block;
+  src: url(/fonts/Roboto/Roboto-Italic-VariableFont_wdth,wght.ttf)
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Roboto Mono";
   font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url(/fonts/ComicNeue/ComicNeue-Regular.ttf) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
+  font-display: block;
+  src: url(/fonts/RobotoMono/RobotoMono-VariableFont_wght.ttf) format("woff2");
 }
 @font-face {
-  font-family: "Comic Neue";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url(/fonts/ComicNeue/ComicNeue-Bold.ttf) format("woff2");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
-    U+2212, U+2215, U+FEFF, U+FFFD;
+  font-family: "Roboto Mono";
+  font-style: italic;
+  font-display: block;
+  src: url(/fonts/RobotoMono/RobotoMono-Italic-VariableFont_wght.ttf)
+    format("woff2");
 }
 
 html,
 body {
   @apply text-neutral-800 bg-neutral-100;
   @apply dark:text-1b-white dark:bg-1b-black;
+  @apply font-normal tracking-wide;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+.blog-post {
+  @apply text-xl;
+}
+
+.blog-post h1 {
+  @apply text-3xl font-bold mt-12 mb-6;
+}
+.blog-post h2 {
+  @apply text-2xl font-bold mt-10 mb-6;
+}
+.blog-post h3,
+.blog-post h4,
+.blog-post h5,
+.blog-post h6 {
+  @apply text-xl font-bold mt-8 mb-4;
+}
+
+.blog-post p {
+  @apply my-6 text-neutral-200;
+}
+
+.blog-post a {
+  @apply text-blue-400 hover:underline;
+}
+
+.blog-post ol {
+  @apply list-decimal pl-8;
+}
+
+.blog-post ul {
+  @apply list-disc pl-8;
+}
+
+.blog-post pre {
+  @apply p-6 rounded-2xl text-base font-mono;
+}
+
+.blog-post code:not(pre > code) {
+  @apply rounded-md text-sm py-0.5 px-1.5 font-mono bg-neutral-700;
+}
+
+.blog-post blockquote {
+  @apply px-6 py-0.5 border-l-yellow-300 border-l-8 my-6 rounded-sm;
 }

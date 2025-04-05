@@ -6,6 +6,7 @@ import "../styles/global.css";
 type Props = {
   title?: string;
   description?: string;
+  class?: string;
 };
 
 const title = Astro.props.title
@@ -13,6 +14,7 @@ const title = Astro.props.title
   : SITE_TITLE;
 
 const description = Astro.props.description || SITE_DESCRIPTION;
+const className = Astro.props.class;
 ---
 
 <!doctype html>
@@ -32,7 +34,8 @@ const description = Astro.props.description || SITE_DESCRIPTION;
   </head>
   <body>
     <div
-      class="w-full max-w-[640px] m-auto min-h-screen border-neutral-300 dark:border-neutral-700 sm:border-x-2"
+      class={`w-full m-auto min-h-screen border-neutral-300 dark:border-neutral-700 sm:border-x-2 ` +
+        className}
     >
       <header class="px-8 pt-8 mb-8">
         <div
@@ -58,7 +61,7 @@ const description = Astro.props.description || SITE_DESCRIPTION;
           </div>
         </div>
       </header>
-      <main class="px-4">
+      <main class="px-4 pb-40">
         <slot />
       </main>
     </div>
