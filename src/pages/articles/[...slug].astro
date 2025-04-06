@@ -15,12 +15,22 @@ const post = Astro.props;
 const { Content } = await render(post);
 
 const year = post.data.pubDate?.getFullYear() ?? new Date().getFullYear();
+
+const imageUrl = new URL(Astro.url);
+imageUrl.pathname = post.data.heroImage ?? "";
 ---
 
 <BaseLayout
   class="max-w-[1000px]"
   title={post.data.title}
   description={post.data.description}
+  og={[
+    { key: "og:locale", value: "en_US" },
+    { key: "og:type", value: "article" },
+    { key: "og:title", value: post.data.title },
+    { key: "og:description", value: post.data.description },
+    { key: "og:image", value: imageUrl.toString() },
+  ]}
 >
   <article>
     <Content />

@@ -1,6 +1,6 @@
 ---
 title: "You Need A Build System!"
-description: "Learn how to set up GitHub to automatically export your Godot game to itch.io."
+description: "Wouldn’t it be nice if your jam game was automatically uploaded to Itch every time you committed to main? GitHub can do this, and this guide will make setting it up easy."
 # pubDate: "Apr 6 2025"
 heroImage: "/images/youneedabuildsystem.png"
 ---
