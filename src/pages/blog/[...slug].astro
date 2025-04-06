@@ -13,6 +13,8 @@ type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+const year = post.data.pubDate?.getFullYear() ?? new Date().getFullYear();
 ---
 
 <BaseLayout
@@ -23,4 +25,10 @@ const { Content } = await render(post);
   <article class="blog-post">
     <Content />
   </article>
+  <footer class="text-center mt-8">
+    &COPY; {year} SolarLabyrinth | <a
+      class="text-blue-400 hover:underline"
+      href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a
+    >
+  </footer>
 </BaseLayout>
