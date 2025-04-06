@@ -30,6 +30,8 @@ imageUrl.pathname = post.data.heroImage ?? "";
     { key: "og:title", value: post.data.title },
     { key: "og:description", value: post.data.description },
     { key: "og:image", value: imageUrl.toString() },
+    { key: "og:image:width", value: "2000" },
+    { key: "og:image:height", value: "1125" },
   ]}
 >
   <article>
