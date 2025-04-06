@@ -64,11 +64,11 @@ article h6 {
 }
 
 article p {
-  @apply my-6 text-neutral-200;
+  @apply my-6 text-neutral-800 dark:text-neutral-300;
 }
 
 article a {
-  @apply text-blue-400 hover:underline;
+  @apply text-blue-600 dark:text-blue-400 hover:underline;
 }
 
 article ol {
@@ -84,21 +84,21 @@ article pre {
 }
 
 article code:not(pre > code) {
-  @apply rounded-md text-sm py-0.5 px-1.5 font-mono bg-neutral-700;
+  @apply rounded-md text-sm py-0.5 px-1.5 font-mono bg-neutral-300 dark:bg-neutral-700;
 }
 
 article blockquote {
-  @apply px-6 py-1 bg-neutral-700 border-l-blue-200 border-l-8 my-6 rounded-sm;
+  @apply px-6 py-1 bg-neutral-300 dark:bg-neutral-700 border-l-blue-400 dark:border-l-blue-200 border-l-8 my-6 rounded-sm;
 }
 
 article table {
-  @apply rounded-md overflow-hidden w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400;
+  @apply rounded-md overflow-hidden w-full text-sm text-left rtl:text-right;
 }
 article thead tr {
-  @apply text-xs uppercase text-neutral-700 bg-neutral-50 dark:bg-[#384048] dark:text-neutral-400;
+  @apply text-xs uppercase bg-neutral-200 dark:bg-[#384048];
 }
 article tbody tr {
-  @apply bg-white dark:bg-[#24292e];
+  @apply bg-neutral-300 dark:bg-[#24292e];
 }
 article th,
 article td {
