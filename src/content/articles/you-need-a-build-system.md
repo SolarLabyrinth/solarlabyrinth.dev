@@ -2,7 +2,7 @@
 title: "You Need A Build System!"
 description: "Wouldn’t it be nice if your jam game was automatically uploaded to Itch every time you committed to main? GitHub can do this, and this guide will make setting it up easy."
 # pubDate: "Apr 6 2025"
-heroImage: "/images/youneedabuildsystem.png"
+heroImage: "/images/you-need-a-build-system.png"
 ---
 
 # Godot Devs: You Need A Build System!
