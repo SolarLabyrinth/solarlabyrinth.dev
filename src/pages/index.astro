@@ -8,7 +8,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ProfilesList from "../components/ProfilesList.astro";
 import GamesList from "../components/GamesList.astro";
 
-const allPosts = await getCollection("blog");
+const allPosts = await getCollection("articles");
 const posts = allPosts.filter(
   (post) => post.data.pubDate && post.data.heroImage && post.data.title
 );
@@ -20,15 +20,11 @@ const posts = allPosts.filter(
   {
     posts.length > 0 && (
       <>
-        <h2 class="text-3xl px-4 mt-4 mb-1 font-bold">Blog Posts</h2>
+        <h2 class="text-3xl px-4 mt-4 mb-1 font-bold">Articles</h2>
         <ul class="flex flex-wrap px-2 @container">
           {posts.map((post) => (
             <li class="w-full p-2">
-              <a
-                href={`/blog/${post.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={`/articles/${post.id}`}>
                 <Image
                   class="rounded-xl"
                   width={900}

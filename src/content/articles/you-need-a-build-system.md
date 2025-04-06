@@ -1,7 +1,7 @@
 ---
 title: "You Need A Build System!"
 description: "Learn how to set up GitHub to automatically export your Godot game to itch.io."
-# pubDate: "Apr 5 2025"
+# pubDate: "Apr 6 2025"
 heroImage: "/images/youneedabuildsystem.png"
 ---
 
@@ -11,49 +11,48 @@ If you've ever joined a game jam, it's quite likely that you've had to upload yo
 
 Many times have I exported my web build, forgotten to name files correctly, or uploaded an old zip file. And just when I fix those issues, I test my game, find a bug, and have to repeat the whole process over again.
 
-Wouldn't it be nice if the game was automatically exported and uploaded to itch every time I committed to main?
+Wouldn't it be nice if the game was automatically exported and uploaded to itch every time I committed to main? GitHub can do this for us, and this guide will make setting it up easy.
 
-GitHub can do this for us, and this guide will make setting it up easy.
+> If you already know how GitHub Actions work, or just want to copy/paste the final result. Feel free to skip ahead:
+>
+> 1. [How Do Manual Exports Work Anyway?](#how-do-manual-exports-work-anyway)
+> 2. [GitHub Workflow Basics](#github-workflow-basics)
+> 3. [Setting Up Godot in GitHub Actions](#setting-up-godot-in-github-actions)
+> 4. [Setting Up Butler in GitHub Actions](#setting-up-butler-in-github-actions)
+> 5. [The Final Result](#the-final-result)
+> 6. [Conclusion](#conclusion)
 
-If you already know how GitHub Actions work, or just want to copy/paste the final result. Feel free to skip ahead:
+## How Do Manual Exports Work Anyway?
 
-1. [How Do Godot Exports Actually Work?](#how-do-godot-exports-actually-work)
-2. [GitHub Workflow Basics](#github-workflow-basics)
-3. [Setting Up Godot in GitHub Actions](#setting-up-godot-in-github-actions)
-4. [Setting Up Butler in GitHub Actions](#setting-up-butler-in-github-actions)
-5. [The Final Result](#the-final-result)
+When I'm thinking about automating a bunch of manual steps, I like to list them all out so I don't forget any.
 
-## How Do Godot Exports Actually Work?
+Let's start from the bare minimum, and imagine that we have a brand new computer - no software on it at all. And we need to configure it to create, export, and upload a game using Godot. What are all the actions we need to take to do this?
 
-When we're thinking about automating a bunch of manual steps, it's really important to list them all out so we don't forget any.
+1. First, we need to download Godot itself. We can get it from a few places such as Godot's [website](https://godotengine.org/) or [github releases](https://github.com/godotengine/godot-builds/releases) page.
 
-Let's start from the bare minimum, and pretend like we have a brand new computer - no software on it at all. And we need to configure it to create, export, and upload a game using Godot. What are all the actions we need to take to do this?
+1. Next, we need to actually create a game with the engine. It can be something quite simple for this example. You can use an existing project of yours if you like. I'm going to use my game [PacSnek](https://github.com/SolarLabyrinth/PacSnek) for this. Feel free to fork it and follow along if you don't have a project readily available.
 
-- First, we need to download Godot itself. We can get it from a few places such as Godot's [website](https://godotengine.org/) or [github releases](https://github.com/godotengine/godot-builds/releases) page.
+1. Now we need to export our game as a web build. We can do this in the "Project > Export..." menu. This will prompt us to add or select a previously added preset. We'll chose Web so we can upload it as a web build for our Jam.
 
-- Next, we need to actually create a game with the engine. It can be something quite simple for this example. You can use an existing project of yours if you like. I'm going to use my game [PacSnek](https://github.com/SolarLabyrinth/PacSnek) for this. Feel free to fork it and follow along if you don't have a project readily available.
+1. Since we're on a brand new computer, Godot doesn't have any export templates installed yet. Godot will prompt us to download them before we can proceed. These export templates change with every Godot release, and have to be installed every time you change versions.
 
-- Now we need to export our game as a web build. We can do this in the "Project > Export..." menu. This will prompt us to add or select a previously added preset. We'll chose Web so we can upload it as a web build for our Jam.
+1. Once that's done, we can choose an Export Path. I like to use a `./build` directory in my repository for this. We need to create it if it doesn't already exist. Itch also requires that web builds be named "index.html". So I'll select "build/index.html" for this value.
 
-- Since we're on a brand new computer, Godot doesn't have any export templates installed yet. Godot will prompt us to download them before we can proceed. These export templates change with every Godot release, and have to be installed every time you change versions.
+1. Now we can finally export the project with the aptly named "Export Project..." button. This will create a bunch of files for us in our `./build` directory.
 
-- Once that's done, we can choose an Export Path. I like to use a `./build` folder in my repository for this. We need to create it if it doesn't already exist. Itch also requires that web builds be named "index.html". So I'll select "build/index.html" for this value.
+1. To upload this to itch we need to zip all of these files up into a .zip file. Making sure that index.html is at the root of that zip file. Select them all. Compress them into a .zip file and we can continue.
 
-- Now we can finally export the project with the aptly named "Export Project..." button. This will create a bunch of files for us in our `./build` folder.
+1. Now we need to go to our [Itch.io Creator Dashboard](https://itch.io/dashboard) and create a new project for us to upload to. Set a title, url, and values for any of the other fields you would like to change. The most important values we care about for this guild is in the "Uploads" section. Upload your zip file there and make sure to check the play in browser button. You may need to modify some Embed options like the width and height, or add a full screen button.
 
-- To upload this to itch we need to zip all of these files up into a .zip folder. Making sure that index.html is at the root of that zip file. Select them all. Compress them into a .zip file and we can continue.
+1. Hit save, navigate to the project's page, and we should be done.
 
-- Now we need to go to our Itch.io Creator Dashboard and create a new project for us to upload to. Set a title, url, and values for any of the other fields you would like to change. The key values we care about for this guild is the "Uploads" section. Upload your zip file there and make sure to check the play in browser button. You may need to modify some Embed options like the width and height, or add a full screen button.
-
-- Hit save, navigate to our project page, and we should be done.
-
-That's a lot of steps. And we're going to automate each and every one. Lets start with just getting GitHub to export our project. Then tackle the Itch upload.
+That's a lot of steps. Lets automate each and every one with a GitHub Actions.
 
 ## GitHub Workflow Basics
 
-To get GitHub to do things for us, we need to create what's called a "workflow" file. These are `.yml` files located in a `.github/workflows` directory in our project. We'll create one for this guide and call it `build.yml`.
+To get GitHub to do things for us, we need to create what's called a "workflow" file. These are `.yml` files located in a `.github/workflows` directory in our project. We'll create one for this guide and call it `build.yml`. It could be named anything, but this seems descriptive to me.
 
-We'll add this to that file to start with.
+Copy and paste this into that `build.yml` file:
 
 ```yml
 # .github/workflows/build.yml
@@ -86,14 +85,16 @@ Let's explain what each of these entries in the .yml files does before moving on
 name: Build
 ```
 
-This is the name of our workflow. We can call it anything we like. That name will appear in GitHub's UI.
+This is the name of our workflow. We can call it anything we like. That name is what will appear in GitHub's UI.
 
 ```yml
 on:
   push:
 ```
 
-These lines describe what events can trigger our workflow. There's a lot of events to choose from, but these options will run it on every push to our repository. Or whenever we decide to manually run it in the GitHub UI. We can provide more configuration options here too. Maybe we only want to run it on pushes to our main branch, but not any other branch. For this we can say:
+These lines describe what events can trigger our workflow. There's [a lot of events to choose](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows) from, but this option will run it on every push to our repository.
+
+Maybe we only want to run it on pushes to our main branch, but not any other branch. For this we can say:
 
 ```yml
 on:
@@ -102,7 +103,7 @@ on:
       - main
 ```
 
-Pretty Simple. Finally we have the jobs section:
+Finally we have the jobs section:
 
 ```yml
 jobs:
@@ -116,9 +117,11 @@ jobs:
         run: echo "Hello World!"
 ```
 
-This lets us define a list of jobs we want to run in this workflow. Ours has 1 job called "build". We could name this any thing we like, but that seems descriptive for what we want to do.
+This lets us define a list of jobs we want to run in this workflow. Ours has 1 job called "build". We could name this anything we like, but that seems descriptive for what we want to do.
 
-This build job states that it runs on "ubuntu-latest". This will cause GitHub to provision a linux machine for us to run our commands in the cloud. GitHub also supports Windows & MacOS runners here, but Linux is usually simpler and faster for automation such as this.
+This build job states that it runs on "ubuntu-latest". This will cause GitHub to provision a brand new linux machine every time this workflow runs to run the steps we specify.
+
+GitHub also supports Windows & MacOS runners here, but Linux is usually simpler and faster for automation such as this.
 
 The steps section tells github what commands to run:
 
@@ -151,7 +154,7 @@ Lets finally get started with doing that.
 
 An easy way to download godot is from their GitHub releases page: https://github.com/godotengine/godot-builds/releases
 
-At the time of writing, 4.4.1 is the latest stable release of godot, but you can choose whatever version you are using. These commands should be valid for any version of Godot 4 you substitute in.
+At the time of writing, 4.4.1 is the latest stable release of godot, but you can choose whatever version you are using. These commands should be valid for any version of Godot 4 you substitute in. Godot 3 is a bit different and may require more investigation.
 
 Since our GitHub machine is using Linux, we'll want to download the linux.x86_64 version of Godot. And since we want to export web builds, we'll chose the non-mono version.
 
@@ -183,7 +186,7 @@ While we're here. Lets also install the Export Templates. We can get these from 
   run: wget https://github.com/godotengine/godot-builds/releases/download/4.4.1-stable/Godot_v4.4.1-stable_export_templates.tpz
 ```
 
-These are provided as a `.tpz` file, which is just another kind of compressed archive. `unzip` can also handle this just fine.
+These are provided as a `.tpz` file, which is just another kind of compressed archive. `unzip` can handle this just fine also.
 
 ```yml
 - name: Unzip Export Templates
@@ -214,9 +217,9 @@ This does a lot of things:
 - We start by making a `./build` directory for Godot to export into.
 - Then we run godot with a few command line flags
 
-  - `--headless` means that we don't want to open the Godot Editor. Our linux machine doesn't have a monitor, so it wouldn't be able to use it even if we wanted to.
-  - `--export-release "Web"` Says we want to export our game using the "Web" template. This is the default name Godot uses when you add a preset in the export screen, but if you changed that name you'll need to change it here too. Also, if you want to export in Debug mode, you would chose --export-debug instead.
-  - `./build/index.html` This is the location godot will save your exported game. In our case we save it in the `./build` folder we just created and name it index.html for Itch.io to be happy.
+  - `--headless` means that we don't want to open the Godot Editor's GUI. Our linux machine doesn't have a monitor, so we wouldn't be able to use it even if we wanted to.
+  - `--export-release "Web"` Says we want to export our game using the "Web" template. This is the default name Godot uses when you add a preset in the export screen, but if you changed that name you'll need to change it here too. If you want to export in Debug mode, you would chose `--export-debug` instead.
+  - `./build/index.html` This is the location godot will save your exported game. In our case we save it in the `./build` directory we just created and name it `index.html` for Itch.io to be happy.
 
 Putting it all together: we should have something that looks like this:
 
@@ -261,9 +264,9 @@ jobs:
           ./godot --headless --export-release "Web" ./build/index.html
 ```
 
-This works, but it's a lot of steps to have to copy and paste. And you may have noticed that we're hard coding the godot versions all over the place. If we ever wanted to upgrade it would be nice to just have one place to change it.
+This works, but it's a lot of steps to have to copy and paste. And you may have noticed that we're hard coding the godot version all over the place. If we ever wanted to upgrade it would be nice to just have one place to change it.
 
-This is where custom actions really shine. I've created a custom action that does all of these things for you in a single step. You can use it directly here, or copy the action.yml directly from it's [repository](https://github.com/SolarLabyrinth/Action-Setup-Godot).
+This is where custom actions really shine. I've created a custom action that does all of the Godot setup for you in a single step. You can use it directly here, or copy the action.yml directly from it's [repository](https://github.com/SolarLabyrinth/Action-Setup-Godot).
 
 ```yml
 - name: Setup Godot
@@ -275,6 +278,10 @@ This is where custom actions really shine. I've created a custom action that doe
 The "with" key lets you pass variables into a custom action. Choose whichever version of godot you would like. This action is tested against all stable versions of Godot 4 and the latest unstable release. Additional variables are detailed in the [Readme](https://github.com/SolarLabyrinth/Action-Setup-Godot/blob/main/README.md).
 
 This action also adds godot to the system path, so we don't need to add a `./` in front of godot when we use it in the "Export Game" step.
+
+> **Note:**
+>
+> Always be cautious when using custom actions from unknown sources. Especially if you're passing credentials to them. This action is simple and easily audited, but you might want to consider copying the `action.yml` file directly into your repository to avoid future supply-chain attacks.
 
 Our workflow file now looks like this:
 
@@ -317,13 +324,13 @@ This is a workflow step that will install butler for us.
 ```yml
 - name: Download Butler
   run: |
-    wget -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+    wget -O butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
     unzip butler.zip
     chmod +x butler
     ./butler -V
 ```
 
-This downloads the latest butler .zip file, unzips it, marks it as executable (if needed) and then prints the butler version to the console.
+This downloads the latest butler .zip file, unzips it, marks it as executable, and then prints the butler version to the console.
 
 Now, we need to provide our GitHub machine with credentials to publish games to our Itch account.
 
@@ -361,10 +368,6 @@ If you're wondering if I have a nice 1-step action for you to use for this also.
     key: ${{ secrets.BUTLER_API_KEY }}
 ```
 
-> **Note**
->
-> Always be cautious when using custom actions from unknown sources. Especially when you're passing credentials to them. This action is simple and easily audited here. Also consider copying the `action.yml` file directly into your repository to avoid future supply-chain attacks.
-
 Now that we have butler installed and authenticated with our Itch account, we can use it to push our game to our Itch page. If you haven't already created a page for your game, do this now.
 
 ```yml
@@ -388,7 +391,11 @@ And that's it!
 
 ## The Final Result
 
-Our final file should look like this. Committing it to your game's repository will cause it to run automatically every time you commit to main.
+Our final file should look like this. Committing it to your game's repository will cause it to run automatically every time you commit to main. Make sure you've saved the Butler API key as a repository secret.
+
+The first time a web build is published through Butler, you will need to go to the Itch Project's Settings Page and mark it as play in browser. Every build after the first will remember this value.
+
+### Final Workflow File
 
 ```yml
 # .github/workflows/build.yml
@@ -425,3 +432,19 @@ jobs:
       - name: Upload to Itch
         run: butler push ./build ITCH_ACCOUNT/GAME_NAME:web
 ```
+
+### Repository Secrets
+
+| Name           | Value                                                                                    |
+| -------------- | ---------------------------------------------------------------------------------------- |
+| BUTLER_API_KEY | Copy and pasted from your Itch.io [API key page](https://itch.io/user/settings/api-keys) |
+
+## Conclusion
+
+That's it! Congratulations. Go forth and enjoy not having to waste your precious Game Jam time on deployment shenanigans.
+
+Automated deployment tools like GitHub Actions are really powerful and convenient for all kinds of tasks. You can run tests every time you change files, deploy dedicated server builds to your dev servers, or automate building client versions for several platforms all in one go.
+
+The only limits when it comes to build automation is your creativity. Well... and time... and I guess API availability. And possibly free tier usage limits. And... well. Ok. You get the point.
+
+Think about automating whatever frustrates you. Automating it once means you never have to mess with it again.

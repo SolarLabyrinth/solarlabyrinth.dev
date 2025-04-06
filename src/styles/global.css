@@ -46,47 +46,60 @@ body {
   }
 }
 
-.blog-post {
+article {
   @apply text-xl;
 }
 
-.blog-post h1 {
+article h1 {
   @apply text-3xl font-bold mt-12 mb-6;
 }
-.blog-post h2 {
+article h2 {
   @apply text-2xl font-bold mt-10 mb-6;
 }
-.blog-post h3,
-.blog-post h4,
-.blog-post h5,
-.blog-post h6 {
+article h3,
+article h4,
+article h5,
+article h6 {
   @apply text-xl font-bold mt-8 mb-4;
 }
 
-.blog-post p {
+article p {
   @apply my-6 text-neutral-200;
 }
 
-.blog-post a {
+article a {
   @apply text-blue-400 hover:underline;
 }
 
-.blog-post ol {
-  @apply list-decimal pl-8;
+article ol {
+  @apply list-decimal pl-8 my-6;
 }
 
-.blog-post ul {
+article ul {
   @apply list-disc pl-8;
 }
 
-.blog-post pre {
+article pre {
   @apply p-6 rounded-2xl text-base font-mono;
 }
 
-.blog-post code:not(pre > code) {
+article code:not(pre > code) {
   @apply rounded-md text-sm py-0.5 px-1.5 font-mono bg-neutral-700;
 }
 
-.blog-post blockquote {
-  @apply px-6 py-0.5 border-l-yellow-300 border-l-8 my-6 rounded-sm;
+article blockquote {
+  @apply px-6 py-1 bg-neutral-700 border-l-blue-200 border-l-8 my-6 rounded-sm;
+}
+
+article table {
+  @apply w-full border-collapse border border-neutral-300 my-6;
+}
+article th {
+  @apply bg-neutral-200 dark:bg-neutral-700 text-left font-bold p-4 border border-neutral-300;
+}
+article td {
+  @apply p-4 border border-neutral-300;
+}
+article tr:nth-child(even) {
+  @apply bg-neutral-100 dark:bg-neutral-800;
 }
