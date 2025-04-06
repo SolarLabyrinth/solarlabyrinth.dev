@@ -13,7 +13,7 @@ Many times have I exported my web build, forgotten to name files correctly, or u
 
 Wouldn't it be nice if the game was automatically exported and uploaded to itch every time I committed to main? GitHub can do this for us, and this guide will make setting it up easy.
 
-> If you already know how GitHub Actions work, or just want to copy/paste the final result. Feel free to skip ahead:
+> If you already know how GitHub Actions work or just want to copy/paste the final result, feel free to skip ahead:
 >
 > 1. [How Do Manual Exports Work Anyway?](#how-do-manual-exports-work-anyway)
 > 2. [GitHub Workflow Basics](#github-workflow-basics)
