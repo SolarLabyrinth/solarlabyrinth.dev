@@ -1,8 +1,8 @@
 ---
 title: "You Need A Build System!"
 description: "Learn how to set up GitHub to automatically export your Godot game to itch.io."
-# pubDate: "Jun 19 2024"
-heroImage: "/blog-placeholder-1.jpg"
+# pubDate: "Apr 5 2025"
+heroImage: "/images/youneedabuildsystem.png"
 ---
 
 # Godot Devs: You Need A Build System!
