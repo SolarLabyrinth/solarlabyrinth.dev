@@ -16,8 +16,11 @@ const { Content } = await render(post);
 
 const year = post.data.pubDate?.getFullYear() ?? new Date().getFullYear();
 
-const imageUrl = new URL(Astro.url);
-imageUrl.pathname = post.data.heroImage ?? "";
+function url(path?: string) {
+  const result = new URL(Astro.url);
+  result.pathname = path ?? "";
+  return result.toString();
+}
 ---
 
 <BaseLayout
@@ -29,9 +32,9 @@ imageUrl.pathname = post.data.heroImage ?? "";
     { key: "og:type", value: "article" },
     { key: "og:title", value: post.data.title },
     { key: "og:description", value: post.data.description },
-    { key: "og:image", value: imageUrl.toString() },
-    { key: "og:image:width", value: "2000" },
-    { key: "og:image:height", value: "1125" },
+    { key: "og:image", value: url("/images/solar-avatar-512.png") },
+    { key: "og:image:width", value: "512" },
+    { key: "og:image:height", value: "512" },
   ]}
 >
   <article>
