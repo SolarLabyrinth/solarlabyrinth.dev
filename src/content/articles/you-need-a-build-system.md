@@ -1,7 +1,7 @@
 ---
-title: "You Need A Build System!"
+title: "Godot Devs: You Need A Build System!"
 description: "Wouldn’t it be nice if your jam game was automatically uploaded to Itch every time you committed to main? GitHub can do this, and this guide will make setting it up easy."
-# pubDate: "Apr 6 2025"
+pubDate: "Apr 6 2025"
 heroImage: "/images/you-need-a-build-system.png"
 ---
 
@@ -391,7 +391,7 @@ And that's it!
 
 ## The Final Result
 
-Our final file should look like this. Committing it to your game's repository will cause it to run automatically every time you commit to main. Make sure you've saved the Butler API key as a repository secret.
+Our final file should look like this. Committing it to your game's repository will cause it to run automatically every time you commit to main. Make sure you've saved the Butler API key as a repository secret and replaced the ITCH_ACCOUNT and GAME_NAME placeholders with your own values.
 
 The first time a web build is published through Butler, you will need to go to the Itch Project's Settings Page and mark it as play in browser. Every build after the first will remember this value.
 
