@@ -1,9 +1,8 @@
 ---
 import "../styles/global.css";
 
-import { Image } from "astro:assets";
-import { SITE_DESCRIPTION, SITE_TITLE, socials } from "../consts";
-import Icon from "../components/Icon.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../consts";
+import SiteHeader from "../components/SiteHeader.astro";
 
 type Props = {
   title?: string;
@@ -37,58 +36,13 @@ const { showProfiles } = Astro.props;
       ))
     }
   </head>
-  <body>
-    <div
-      class={`w-full m-auto min-h-screen border-neutral-300 dark:border-neutral-700 sm:border-x-2 ` +
-        className}
-    >
-      <header class="px-8 pt-8 mb-8">
-        <div
-          class="flex flex-col items-center text-center gap-4 sm:flex-row sm:text-left"
-        >
-          <a href="/" aria-label="Home Page">
-            <Image
-              width={96}
-              height={96}
-              loading="eager"
-              class="size-24 rounded-full"
-              src="/images/solar-avatar-512.png"
-              alt="A black and white owl with a rainbow bowtie in line art style"
-            />
-          </a>
-          <div>
-            <h1 class="text-xl font-bold">{SITE_TITLE}</h1>
-            <p
-              class="mt-0.5 text-sm w-60 sm:w-full font-semibold text-neutral-500 dark:text-neutral-400"
-            >
-              {SITE_DESCRIPTION}
-            </p>
-            {
-              showProfiles && (
-                <ul class="mt-2 flex justify-center sm:justify-start gap-2 text-neutral-500 dark:text-neutral-400">
-                  {socials
-                    .filter((profile) => profile.href)
-                    .map((profile) => (
-                      <li class="hover:text-neutral-200">
-                        <a
-                          target="__blank"
-                          rel="noopener noreferrer"
-                          href={profile.href}
-                          title={profile.description}
-                        >
-                          <Icon class="fill-current h-5" name={profile.icon} />
-                        </a>
-                      </li>
-                    ))}
-                </ul>
-              )
-            }
-          </div>
-        </div>
-      </header>
-      <main class="px-4 pb-20">
-        <slot />
-      </main>
-    </div>
+  <body
+    class={`w-full m-auto min-h-screen border-neutral-300 dark:border-neutral-700 sm:border-x-2 ` +
+      className}
+  >
+    <SiteHeader showProfiles={showProfiles} />
+    <main class="px-4 pb-20">
+      <slot />
+    </main>
   </body>
 </html>
