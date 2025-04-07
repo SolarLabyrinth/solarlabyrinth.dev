@@ -16,7 +16,6 @@ const posts = allPosts.filter(
 
 <BaseLayout class="max-w-[640px]">
   <ProfilesList />
-  <GamesList />
   {
     posts.length > 0 && (
       <>
@@ -39,4 +38,5 @@ const posts = allPosts.filter(
       </>
     )
   }
+  <GamesList />
 </BaseLayout>
