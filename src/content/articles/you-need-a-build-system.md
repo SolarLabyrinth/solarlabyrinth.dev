@@ -195,9 +195,12 @@ These are provided as a `.tpz` file, which is just another kind of compressed ar
 
 This will drop the export templates in the root of your project's repository, but that's not where Godot looks for them by default when exporting your projects. We'll need to move them to the right place.
 
-On linux, Godot expects the export templates to be located at `~/.local/share/godot/export_templates/4.4.1.stable`. So that's where we'll move them to. This command will do this for us:
+On linux, Godot expects the export templates to be located at `~/.local/share/godot/export_templates/4.4.1.stable`. So that's where we'll move them to. These commands will do this for us. First we create the export template directory if it doesn't exist, then we move the templates there.
 
 ```yml
+- name: Create Export Template Directory
+  run: mkdir -p ~/.local/share/godot/export_templates/4.4.1.stable
+
 - name: Move Export Templates
   run: mv templates/* ~/.local/share/godot/export_templates/4.4.1.stable/
 ```
@@ -254,6 +257,9 @@ jobs:
 
       - name: Unzip Export Templates
         run: unzip Godot_v4.4.1-stable_export_templates.tpz
+
+      - name: Create Export Template Directory
+        run: mkdir -p ~/.local/share/godot/export_templates/4.4.1.stable
 
       - name: Move Export Templates
         run: mv templates/* ~/.local/share/godot/export_templates/4.4.1.stable/
