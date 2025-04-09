@@ -226,7 +226,7 @@ This does a lot of things:
 
 > **Note:**
 >
-> You need to set the "Web" export template up in the Godot GUI before this command will work. If the `export_presets.cfg` file is being ignored in your `.gitignore` file you need to remove that and check it into your repo. Otherwise, GitHub Actions will not see your template.
+> You need to set the "Web" export template up in the Godot GUI before this command will work. If the `export_presets.cfg` file is being ignored in your `.gitignore` file, then you'll need to remove that and check it into your repo. Otherwise, GitHub Actions will not see your template.
 
 Putting it all together: we should have something that looks like this:
 
