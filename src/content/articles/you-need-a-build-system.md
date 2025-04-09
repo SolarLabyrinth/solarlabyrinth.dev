@@ -381,7 +381,7 @@ Now that we have butler installed and authenticated with our Itch account, we ca
   run: butler push ./build ITCH_ACCOUNT/GAME_NAME:web
 ```
 
-This calls butler with some arguments. You'll need to customize it for your account and game.
+This calls butler with some arguments. You'll need to customize it for your account and game. If you're not using the custom action, you'll need to add a `./` in front of the butler command: `./butler push ./build ITCH_ACCOUNT/GAME_NAME:web`. Since we're not calling butler from the system path.
 
 - `push` will tell butler to push our game to Itch.
 - `./build` is the directory that contains your exported godot game. We used `./build` everywhere in this article, but if you used a different path, specify that here.
