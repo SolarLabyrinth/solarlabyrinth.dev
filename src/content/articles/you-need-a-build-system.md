@@ -369,7 +369,7 @@ On Linux, Butler expects our api key to live in a file called `butler_creds` in 
     echo "${{ secrets.BUTLER_API_KEY }}" > ~/.config/itch/butler_creds
 ```
 
-If you're wondering if I have a nice 1-step action for you to use for this also. The answer is yes, absolutely.
+If you're wondering if I have a nice 1-step action for you to use for this also. The answer is yes, [absolutely](https://github.com/SolarLabyrinth/Action-Setup-Butler).
 
 ```yml
 - name: Setup Butler
