@@ -224,6 +224,10 @@ This does a lot of things:
   - `--export-release "Web"` Says we want to export our game using the "Web" template. This is the default name Godot uses when you add a preset in the export screen, but if you changed that name you'll need to change it here too. If you want to export in Debug mode, you would chose `--export-debug` instead.
   - `./build/index.html` This is the location godot will save your exported game. In our case we save it in the `./build` directory we just created and name it `index.html` for Itch.io to be happy.
 
+> **Note:**
+>
+> You need to set the "Web" export template up in the Godot GUI before this command will work. If the `export_presets.cfg` file is being ignored in your `.gitignore` file you need to remove that and check it into your repo. Otherwise, GitHub Actions will not see your template.
+
 Putting it all together: we should have something that looks like this:
 
 ```yml
