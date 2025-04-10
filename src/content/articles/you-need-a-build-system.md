@@ -401,7 +401,13 @@ And that's it!
 
 ## The Final Result
 
-Our final file should look like this. Committing it to your game's repository will cause it to run automatically every time you commit to main. Make sure you've saved the Butler API key as a repository secret and replaced the `ITCH_ACCOUNT` and `GAME_NAME` placeholders with your own values.
+Our final file should look like this. Committing it to your game's repository will cause it to run automatically every time you commit to main.
+
+Make sure you have:
+
+1. Saved the `BUTLER_API_KEY` as a repository secret.
+2. Replaced the `ITCH_ACCOUNT` and `GAME_NAME` placeholders in the `build.yml` file with your own values.
+3. Set up the "Web" Export Preset in the Godot GUI, and checked `export_presets.cfg` into your repository.
 
 The first time a web build is published through Butler, you will need to go to the Itch Project's Settings Page and set the "Kind of Project" to an "HTML" game. Then also mark the web.zip under Uploads as play in browser. Every build after the first will remember this value.
 
