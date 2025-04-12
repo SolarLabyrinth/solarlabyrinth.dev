@@ -5,8 +5,6 @@ pubDate: "Apr 6 2025"
 heroImage: "/images/you-need-a-build-system.png"
 ---
 
-# Godot Devs: You Need A Build System!
-
 If you've ever joined a game jam, it's quite likely that you've had to upload your game to [itch.io](https://itch.io/) at least once. And if you're like me, it's far more than just once.
 
 Many times have I exported my web build, forgotten to name files correctly, or uploaded an old zip file. And just when I fix those issues, I test my game, find a bug, and have to repeat the whole process over again.

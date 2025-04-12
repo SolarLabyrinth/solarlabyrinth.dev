@@ -40,6 +40,13 @@ function url(path?: string) {
   ]}
 >
   <article>
+    <h1 class="mb-3!">{post.data.title}</h1>
+    <p class="mt-3! text-xs">
+      Published:
+      <data value={post.data.pubDate?.toISOString()}>
+        {post.data.pubDate?.toLocaleDateString("en-UK")}
+      </data>
+    </p>
     <Content />
   </article>
   <footer class="text-center py-8">
@@ -63,6 +70,5 @@ function url(path?: string) {
     data-lang="en"
     data-loading="lazy"
     crossorigin="anonymous"
-    async
-  ></script>
+    async></script>
 </BaseLayout>
