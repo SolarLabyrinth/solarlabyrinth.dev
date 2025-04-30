@@ -38,16 +38,16 @@ export const socials = [
     description: "YouTube",
     href: "https://www.youtube.com/@TheSolarLabyrinth",
   },
-  {
-    icon: "mastodon",
-    title: "@SolarLabyrinth",
-    description: "Mastodon | @mastodon.social",
-    href: "https://mastodon.social/@SolarLabyrinth",
-  },
-  {
-    icon: "twitter",
-    title: "@solarlabyrinth",
-    description: "Twitter",
-    href: "https://x.com/solarlabyrinth",
-  },
+  // {
+  //   icon: "mastodon",
+  //   title: "@SolarLabyrinth",
+  //   description: "Mastodon | @mastodon.social",
+  //   href: "https://mastodon.social/@SolarLabyrinth",
+  // },
+  // {
+  //   icon: "twitter",
+  //   title: "@solarlabyrinth",
+  //   description: "Twitter",
+  //   href: "https://x.com/solarlabyrinth",
+  // },
 ];
