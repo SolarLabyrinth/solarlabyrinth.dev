@@ -1,6 +1,14 @@
 ---
 const games = [
   {
+    title: "Burnout",
+    description:
+      "Write user stories, hire developers, and grow the company as fast as you can!",
+    href: "https://solarlabyrinth.itch.io/burnout",
+    img: "https://img.itch.zone/aW1nLzIwOTIzNzg0LnBuZw==/315x250%23c/lQ%2BHSa.png",
+    labels: ["Jam Game", "Team"],
+  },
+  {
     title: "Lunariel",
     description:
       "Banish the shadow spirits and restore the light of Lunariel to this once-hallowed forest.",
@@ -50,11 +58,13 @@ const games = [
               <div class="text-xl font-bold text-neutral-800 dark:text-white">
                 {game.title}
               </div>
-              {game.labels.map((label) => (
-                <span class="px-2 py-1 bg-neutral-300 dark:bg-neutral-700 rounded-md text-xs">
-                  {label}
-                </span>
-              ))}
+              <div class="flex gap-1">
+                {game.labels.map((label) => (
+                  <span class="px-2 py-1 bg-neutral-300 dark:bg-neutral-700 rounded-md text-xs">
+                    {label}
+                  </span>
+                ))}
+              </div>
               <div class="my-1 text-lg text-neutral-500 dark:text-neutral-400">
                 {game.description}
               </div>
