@@ -44,13 +44,13 @@ Let's start from the bare minimum, and imagine that we have a brand new computer
 
 1. Hit save, navigate to the project's page, and we should be done.
 
-That's a lot of steps. Lets automate each and every one with a GitHub Actions.
+That's a lot of steps. Lets automate each and every one with GitHub Actions.
 
 ## GitHub Workflow Basics
 
 To get GitHub to do things for us, we need to create what's called a "workflow" file. These are `.yml` files located in a `.github/workflows` directory in our project. We'll create one for this guide and call it `build.yml`. It could be named anything, but this seems descriptive to me.
 
-Copy and paste this into that `build.yml` file:
+Copy and paste this into that `build.yml` file. Make sure the indentation matches exactly:
 
 ```yml
 # .github/workflows/build.yml
