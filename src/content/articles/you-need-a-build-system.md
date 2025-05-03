@@ -289,7 +289,7 @@ This action also adds godot to the system path, so we don't need to add a `./` i
 
 > **Note:**
 >
-> Always be cautious when using custom actions from unknown sources. Especially if you're passing credentials to them. This action is simple and easily audited, but you might want to consider copying the `action.yml` file directly into your repository to avoid future supply-chain attacks.
+> Always be cautious when using custom actions from unknown sources. Especially if you're passing credentials to them. Version number tags in github repositories can be changed by the owner. You might want to consider copying the commit SHA from the repository and using that instead of the `v2` tag to avoid potential supply-chain attacks.
 
 Our workflow file now looks like this:
 

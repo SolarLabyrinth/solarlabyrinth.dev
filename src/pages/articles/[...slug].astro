@@ -41,12 +41,22 @@ function url(path?: string) {
 >
   <article>
     <h1 class="mb-3!">{post.data.title}</h1>
-    <p class="mt-3! text-xs">
-      Published:
-      <data value={post.data.pubDate?.toISOString()}>
-        {post.data.pubDate?.toISOString().split("T")[0]}
-      </data>
-    </p>
+    <div class="mt-3! text-xs flex flex-row gap-2">
+      <span>
+        Published:
+        <date value={post.data.pubDate?.toISOString()}>
+          {post.data.pubDate?.toISOString().split("T")[0]}
+        </date>
+      </span>
+      <span aria-hidden="true">|</span>
+      <a
+        href={`https://github.com/SolarLabyrinth/solarlabyrinth.dev/commits/main/${post.filePath}`}
+        target="__blank"
+        rel="noopener noreferrer"
+      >
+        Changelog
+      </a>
+    </div>
     <Content />
   </article>
   <footer class="text-center py-8">
