@@ -209,7 +209,7 @@ Now that we have Godot and our Export Templates installed, we can actually expor
 - name: Export Game
   run: |
     mkdir -p ./build
-    godot --headless --export-release "Web" ./build/index.html
+    ./godot --headless --export-release "Web" ./build/index.html
 ```
 
 This does a lot of things:
