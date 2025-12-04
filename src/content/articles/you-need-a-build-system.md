@@ -332,7 +332,7 @@ This is a workflow step that will install butler for us.
 ```yml
 - name: Download Butler
   run: |
-    wget -O butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+    wget -O butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
     unzip butler.zip
     chmod +x butler
     ./butler -V
@@ -371,7 +371,7 @@ If you're wondering if I have a nice 1-step action for you to use for this also.
 
 ```yml
 - name: Setup Butler
-  uses: solarlabyrinth/action-setup-butler@v1
+  uses: solarlabyrinth/action-setup-butler@v2
   with:
     key: ${{ secrets.BUTLER_API_KEY }}
 ```
@@ -439,7 +439,7 @@ jobs:
           godot --headless --export-release "Web" ./build/index.html
 
       - name: Setup Butler
-        uses: solarlabyrinth/action-setup-butler@v1
+        uses: solarlabyrinth/action-setup-butler@v2
         with:
           key: ${{ secrets.BUTLER_API_KEY }}
 
